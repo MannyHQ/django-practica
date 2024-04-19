@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %} Solicitud Servicio {% endblock title %}
+{% block content %}
+<h2>Solicitud Servicio<h2>
+<form method="POST" class="form-control">
+    {% csrf_token %}
+    {{form.as_p}}
+    <br>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+<br>
+<br>
+
+<div class="table-responsive-sm">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Fecha solicitud</th>
+                <th>Empresa</th>
+                <th>Ocupacion</th>
+                <th>Perfil solicitud</th>
+                <th>Estatus solicitud</th>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for solicitud in solicitudes %}
+          <tr>
+            <td>{{solicitud.id_solicitud}}</td>
+            <td>{{solicitud.fecha_solicitud}}</td>
+            <td>{{solicitud.empresa}}</td>
+            <td>{{solicitud.ocupacion}}</td>
+            <td>{{solicitud.perfil_solicitud}}</td>
+            
+            {% if solicitud.estatus_solicitud == 1 %}
+            <td>Activo</td>
+            {% else %}
+            <td>Inactivo</td>
+            {% endif %}
+            <td>{{solicitud.id_usuario}}</td>
+            <td><a href="/correo_solicitud/{{solicitud.id_solicitud}}" class="btn btn-success">Enviar correo</a></td>
+          </tr>
+          {% endfor %}
+           
+        </tbody>
+      </table>
+</div>
+
+
+
+{% endblock content %}

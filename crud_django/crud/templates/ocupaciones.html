@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Ocupaciones</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Listado de Ocupaciones</h1>
+
+        <!-- Formulario de filtro -->
+        <form class="mb-4" method="GET">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="nombre_ocupacion" id="nombre_ocupacion" placeholder="Nombre de la ocupación">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+                <div class="col-md-3">
+                    <a href="{% url 'exportar_ocupaciones_pdf' %}" class="btn btn-success">Exportar a PDF</a>
+                </div>
+            </div>
+        </form>
+
+        <!-- Tabla de Ocupaciones -->
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ocupacion in ocupaciones %}
+                <tr>
+                    <td>{{ ocupacion.id_ocupacion }}</td>
+                    <td>{{ ocupacion.nombre_ocupacion }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

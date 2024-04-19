@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Egresados</title>
+    <!-- Agrega los enlaces a Bootstrap CSS y jQuery -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Egresados</h1>
+        <form class="mb-4" method="GET" action="">
+            <div class="form-group">
+                <label for="ocupacion">Filtrar por ocupación:</label>
+                <select name="ocupacion" id="ocupacion" class="form-control">
+                    <option value="">Todas las ocupaciones</option>
+                    {% for ocupacion in ocupaciones %}
+                        <option value="{{ ocupacion.nombre_ocupacion }}">{{ ocupacion.nombre_ocupacion }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="estado">Filtrar por estado:</label>
+                <select name="estado" id="estado" class="form-control">
+                    <option value="">Todos los estados</option>
+                    {% for estado in estados %}
+                        <option value="{{ estado }}">
+                            {% if estado %}
+                            Activo
+                            {% else %}
+                            Inactivo
+                            {% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Filtrar por telefono:</label>
+                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono del egresado">
+            </div>
+            <div class="form-group">
+                <label for="email">Filtrar por correo:</label>
+                <input type="text" class="form-control" name="email" id="email" placeholder="Correo electrónico del egresado">
+            </div>
+            <div class="form-group">
+                <label for="email">Filtrar por nombre:</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del egresado">
+            </div>
+            <div class="form-group">
+                <label for="email">Filtrar por apellido:</label>
+                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido del egresado">
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <a href="{% url 'egresados_pdf' %}" class="btn btn-secondary">Exportar a PDF</a>
+        </form>
+        <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
+                    <th>Ocupación</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for egresado in egresados %}
+                    <tr>
+                        <td>{{ egresado.nombre_egresado }}</td>
+                        <td>{{ egresado.apellido_egresado }}</td>
+                        <td>{{ egresado.telefono_egresado }}</td>
+                        <td>{{ egresado.email_egresado }}</td>
+                        <td>{{ egresado.ocupacion.nombre_ocupacion }}</td>
+                        <td>{{ egresado.estatus_egresado }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</body>
+</html>

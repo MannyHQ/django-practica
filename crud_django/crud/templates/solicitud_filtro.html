@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitudes de Servicio</title>
+    <!-- Agrega los enlaces a Bootstrap CSS y jQuery -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Solicitudes de Servicio</h1>
+        <form method="GET" action="">
+            <div class="form-group">
+                <label for="empresa">Filtrar por empresa:</label>
+                <select name="empresa" id="empresa" class="form-control">
+                    <option value="">Todas las empresas</option>
+                    {% for empresa in empresas %}
+                        <option value="{{ empresa.id_empresa }}">{{ empresa.nombre_empresa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ocupacion">Filtrar por ocupación:</label>
+                <select name="ocupacion" id="ocupacion" class="form-control">
+                    <option value="">Todas las ocupaciones</option>
+                    {% for ocupacion in ocupaciones %}
+                        <option value="{{ ocupacion.id_ocupacion }}">{{ ocupacion.nombre_ocupacion }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="estado">Filtrar por estado:</label>
+                <select name="estado" id="estado" class="form-control">
+                    <option value="">Todos los estados</option>
+                    {% for estado in estados %}
+                        <option value="{{ estado }}">{{ estado }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fecha_solicitud">Filtrar por fecha:</label>
+                <input type="date" name="fecha_solicitud">
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+            <a href="{% url 'solicitud_servicio_general_pdf' %}" class="btn btn-secondary">Exportar a PDF</a> <!-- Enlace para exportar a PDF -->
+        </form>
+        <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Fecha Solicitud</th>
+                    <th>Empresa</th>
+                    <th>Ocupación</th>
+                    <th>Perfil Solicitud</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solicitud in solicitudes %}
+                    <tr>
+                        <td>{{ solicitud.fecha_solicitud }}</td>
+                        <td>{{ solicitud.empresa.nombre_empresa }}</td>
+                        <td>{{ solicitud.ocupacion.nombre_ocupacion }}</td>
+                        <td>{{ solicitud.perfil_solicitud }}</td>
+                        <td>{{ solicitud.estatus_solicitud }}</td>
+                        <td>
+                            <!-- Botón para exportar a PDF -->
+                            <a href="{% url 'solicitud_servicio_pdf' solicitud.id_solicitud %}" class="btn btn-secondary">Exportar a PDF</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</body>
+</html>

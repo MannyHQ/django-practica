@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Empresas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Listado de Empresas</h1>
+
+        <!-- Formulario de filtro -->
+        <form class="mb-4" method="GET">
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre de la empresa">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono de la empresa">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Correo electrónico de la empresa">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+        </form>
+        
+        <div class="col-md-3">
+        <a href="{% url 'exportar_empresas_pdf' %}?exportar_pdf=true" class="btn btn-secondary">Exportar a PDF</a>
+        </div>
+        <br>
+        <!-- Tabla de Empresas -->
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo Electrónico</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empresa in empresas %}
+                <tr>
+                    <td>{{ empresa.nombre_empresa }}</td>
+                    <td>{{ empresa.direccion_empresa }}</td>
+                    <td>{{ empresa.telefono_empresa }}</td>
+                    <td>{{ empresa.email_empresa }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

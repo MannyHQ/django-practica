@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Editar empleado{% endblock title %}
+{% block content %}
+<div class="mb-12">
+    <form method="POST" class="form-control" action="/update/{{empleado.id}}">
+        {% csrf_token %}
+        <div class="container">
+            <div class="col-12">
+                <h3>Detalles de edicion</h3>
+            </div>
+            <div class="mb-3">
+                <label>Empleado id:</label>
+                <input type="text" class="form-control" name="id" id="id_id" value="{{empleado.id}}" readonly/>
+            </div>
+            <div class="mb-3">
+                <label>Nombre:</label>
+                <input type="text" class="form-control" name="nombre" id="id_nombre" value="{{empleado.nombre}}"/>
+            </div>
+            <div class="mb-3">
+                <label>Correo:</label>
+                <input type="email" class="form-control" name="correo" id="id_correo" value="{{empleado.correo}}"/>
+            </div>
+            <div class="mb-3">
+                <label>Telefono:</label>
+                <input type="text" class="form-control" name="telefono" id="id_telefono" value="{{empleado.telefono}}"/>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success btn-lg">Actualizar</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

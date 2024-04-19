@@ -1,0 +1,11 @@
+{% include "base.html" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+<form method="POST" class="form-control">
+    <h2>Login</h2> {{msg}}
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+</form>
+{% endblock content %}
